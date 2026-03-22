@@ -7,7 +7,10 @@ public class EstructuraDatos {
     public static void main(String[] args) {
         Usuarios.Pila usuarios = new Usuarios.Pila();
         Usuarios.Pila pila = new Usuarios.Pila();
+        CatalogoServicios.Cola servicios = new CatalogoServicios.Cola();
+        servicios.cargarServicios();
 
+        //REGISTRO Y LOGIN
         JOptionPane.showMessageDialog(null, "Para acceder a computadores MYSOFT, debe registrarse primero");
         pila.registro();
 
@@ -17,36 +20,142 @@ public class EstructuraDatos {
             JOptionPane.showMessageDialog(null, "Inicie sesión para continuar");
             acceso = pila.login();
         }
+        //AQUI PASAMOS A MENU CON BOTONES 
+        while (true) {
 
-        String opcion;
+            String[] botones = {"Usuarios", "Servicios", "Salir"};
 
-        do {
-            opcion = JOptionPane.showInputDialog(
-                    "=== Bienvenido a Computadores MYSOFT ===\n"
-                    + "1.Agregar Usuario\n"
-                    + "2.Inactivar Usuario\n"
-                    + "3.Mostrar Usuarios\n"
-                    + "4.Salir\n ");
-            switch (opcion) {
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Bienvenido a Computadores MYSOFT ===",
+                    "Menú Principal",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
 
-                case "1":
-                    usuarios.agregar();
-                    break;
-                case "2":
-                    usuarios.inactivarUsuario();
-                    break;
-                case "3":
-                    usuarios.mostrar();
-                    ;
-                    break;
-                case "4":
-                    System.exit(0);
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Opción Inválida");
-
+            if (opcion == 0) {
+                menuUsuarios(usuarios);
+            }
+            if (opcion == 1) {
+                CatalogoServicios(servicios);
             }
 
-        } while (!opcion.equals("4"));
+            if (opcion == 2 || opcion == -1) {
+                System.exit(0);
+            }
+        }
+    }
+
+    //MENU DE USUARIOS
+    public static void menuUsuarios(Usuarios.Pila usuarios) {
+
+        while (true) {
+
+            String[] botones = {
+                "Agregar Usuario",
+                "Inactivar Usuario",
+                "Mostrar Usuarios",
+                "Volver"
+            };
+
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Menú Usuarios ===",
+                    "Usuarios",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
+
+            switch (opcion) {
+
+                case 0:
+                    usuarios.agregar();
+                    break;
+
+                case 1:
+                    usuarios.inactivarUsuario();
+                    break;
+
+                case 2:
+                    usuarios.mostrar();
+                    break;
+
+                case 3:
+                    return;
+            }
+        }
+    }
+
+    //MENU DE CATÁLOGO DE SERVICIOS 
+    public static void CatalogoServicios(CatalogoServicios.Cola servicios) {
+
+        while (true) {
+
+            String[] botones = {
+                "Agregar Servicio",
+                "Editar Servicio",
+                "Inactivar Servicio",
+                "Mostrar Servicios",
+                "Volver"
+            };
+
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Catálogo de Servicios ===",
+                    "Servicios",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
+
+            if (opcion == -1 || opcion == 4) {
+                return; // vuelve al menú principal
+            }
+
+            switch (opcion) {
+
+                case 0:
+
+                    String descripcion = JOptionPane.showInputDialog("Descripción del servicio");
+
+                    double costo = Double.parseDouble(
+                            JOptionPane.showInputDialog("Costo del servicio"));
+
+                    int personas = Integer.parseInt(
+                            JOptionPane.showInputDialog("Personas a cargo"));
+
+                    servicios.enqueue(descripcion, costo, personas);
+
+                    break;
+
+                case 1:
+
+                    String editar = JOptionPane.showInputDialog("Servicio a editar");
+                    servicios.editar(editar);
+
+                    break;
+
+                case 2:
+
+                    String inactivar = JOptionPane.showInputDialog("Servicio a inactivar");
+                    servicios.inactivar(inactivar);
+
+                    break;
+
+                case 3:
+
+                    servicios.mostrar();
+
+                    break;
+            }
+        }
     }
 }

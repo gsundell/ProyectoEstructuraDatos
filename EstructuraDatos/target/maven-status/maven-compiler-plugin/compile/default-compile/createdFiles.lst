@@ -1,4 +1,7 @@
 com\mycompany\estructuradatos\EstructuraDatos.class
 com\mycompany\estructuradatos\Usuarios.class
-com\mycompany\estructuradatos\Usuarios$Nodo.class
 com\mycompany\estructuradatos\Usuarios$Pila.class
+com\mycompany\estructuradatos\CatalogoServicios$Cola.class
+com\mycompany\estructuradatos\CatalogoServicios.class
+com\mycompany\estructuradatos\Usuarios$Nodo.class
+com\mycompany\estructuradatos\CatalogoServicios$NodoServicio.class

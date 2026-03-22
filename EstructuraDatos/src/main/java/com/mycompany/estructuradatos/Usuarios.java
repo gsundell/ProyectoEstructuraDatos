@@ -72,8 +72,9 @@ public class Usuarios {
         public void apilar(String nombre, String usuario, String contraseña, boolean activo) {
             Nodo nuevo = new Nodo(nombre, usuario, contraseña, activo, cima);
             cima = nuevo;
-        }
-
+        }   
+        
+            // registro antes de iniciar
         public void registro() {
             String nombre = JOptionPane.showInputDialog("Ingrese el nombre completo:");
             if (nombre == null) {
@@ -90,7 +91,7 @@ public class Usuarios {
 
             apilar(nombre, usuario, contraseña, true);
         }
-
+        //LOGIN 
         public boolean login() {
 
             String user = JOptionPane.showInputDialog("Usuario:");
@@ -123,7 +124,7 @@ public class Usuarios {
 
             return false;
         }
-
+        // Agregar usuarios
         public void agregar() {
 
             String nombre = JOptionPane.showInputDialog(null, "Ingrese el nombre completo del usuario:");
@@ -153,7 +154,7 @@ public class Usuarios {
             JOptionPane.showMessageDialog(null, "Usuario agregado correctamente");
 
         }
-
+            // inactivar usuarios
         public void inactivarUsuario() {
             String inactivar = JOptionPane.showInputDialog(null, "Ingrese el usuario que quiere desactivar:");
             if (inactivar == null) {
@@ -176,22 +177,39 @@ public class Usuarios {
             JOptionPane.showMessageDialog(null, "Usuario introducido no encontrado");
         }
 
+       //Mostrar usuarios
         public void mostrar() {
 
             Nodo actual = cima;
-            String texto = "";
+
+            if (actual == null) {
+                JOptionPane.showMessageDialog(null, "No hay usuarios registrados");
+                return;
+            }
+
+            String texto = "======= USUARIOS =======\n\n";
 
             while (actual != null) {
-                texto += ("================\n"
-                        + "Nombre:" + actual.nombre + "\n"
-                        + "Usuario:" + actual.usuario + "\n"
-                        + "Estado:" + actual.isActivo() + "\n"
-                        + "================\n\n");
+
+                String estado;
+
+                if (actual.activo) {
+                    estado = "Activo";
+                } else {
+                    estado = "Inactivo";
+                }
+
+                texto += "-----------------\n"
+                        + "Nombre: " + actual.nombre + "\n"
+                        + "Usuario: " + actual.usuario + "\n"
+                        + "Estado: " + estado + "\n"
+                        + "-----------------\n\n";
 
                 actual = actual.getAbajo();
             }
-            JOptionPane.showMessageDialog(null, texto);
 
+            JOptionPane.showMessageDialog(null, texto);
         }
     }
 }
+
