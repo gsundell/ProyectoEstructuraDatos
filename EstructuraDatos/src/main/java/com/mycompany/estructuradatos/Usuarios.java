@@ -95,12 +95,12 @@ public class Usuarios {
 
             String user = JOptionPane.showInputDialog("Usuario:");
             if (user == null) {
-                return false;
+                return true;
             }
 
             String password = JOptionPane.showInputDialog("Contraseña:");
             if (password == null) {
-                return false;
+                return true;
             }
 
             Nodo actual = cima;
