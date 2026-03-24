@@ -210,6 +210,17 @@ public class Usuarios {
 
             JOptionPane.showMessageDialog(null, texto);
         }
+        public Nodo buscarUsuario(String nombreUsuario){
+            Nodo actual=cima;
+            
+            while(actual!=null){
+                if(actual.getUsuario().equalsIgnoreCase(nombreUsuario)){
+                    return actual;
+                }
+                actual=actual.getAbajo();
+            }
+            return null;
+        }
     }
 }
 

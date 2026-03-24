@@ -6,24 +6,24 @@ public class EstructuraDatos {
 
     public static void main(String[] args) {
         Usuarios.Pila usuarios = new Usuarios.Pila();
-        Usuarios.Pila pila = new Usuarios.Pila();
         CatalogoServicios.Cola servicios = new CatalogoServicios.Cola();
+        Ventas.ArbolVentas ventas = new Ventas.ArbolVentas();
         servicios.cargarServicios();
 
         //REGISTRO Y LOGIN
         JOptionPane.showMessageDialog(null, "Para acceder a computadores MYSOFT, debe registrarse primero");
-        pila.registro();
+        usuarios.registro();
 
         boolean acceso = false;
 
         while (!acceso) {
             JOptionPane.showMessageDialog(null, "Inicie sesión para continuar");
-            acceso = pila.login();
+            acceso = usuarios.login();
         }
         //AQUI PASAMOS A MENU CON BOTONES 
         while (true) {
 
-            String[] botones = {"Usuarios", "Servicios", "Salir"};
+            String[] botones = {"Usuarios", "Servicios", "Ventas", "Salir"};
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
@@ -42,9 +42,50 @@ public class EstructuraDatos {
             if (opcion == 1) {
                 CatalogoServicios(servicios);
             }
-
-            if (opcion == 2 || opcion == -1) {
+            if (opcion == 2) {
+                menuVentas(ventas, servicios, usuarios);
+            }
+            if (opcion == 3 || opcion == -1) {
                 System.exit(0);
+            }
+        }
+
+    }
+
+    public static void menuVentas(Ventas.ArbolVentas ventas, CatalogoServicios.Cola servicios, Usuarios.Pila usuarios) {
+        while (true) {
+            String[] botones = {
+                "Comprar",
+                "Modificar",
+                "Cancelar",
+                "Mostrar",
+                "Volver"
+            };
+            int op = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Ventas ===",
+                    "Ventas",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
+
+            if (op == 0) {
+                ventas.comprar(servicios, usuarios);
+            }
+            if (op == 1) {
+                ventas.modificar();
+            }
+            if (op == 2) {
+                ventas.cancelar();
+            }
+            if (op == 3) {
+                ventas.mostrarVentas();
+            }
+            if (op == 4 || op == -1) {
+                return;
             }
         }
     }

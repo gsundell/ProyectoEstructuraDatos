@@ -93,7 +93,17 @@ public class CatalogoServicios {
 
             editarRecursivo(actual.siguiente, descripcion);
         }
-
+public NodoServicio buscarServicio(String descripcion){
+    return buscarRec(frente, descripcion);
+}
+private NodoServicio buscarRec(NodoServicio actual, String descripcion){
+    if (actual==null) return null;
+    
+    if (actual.descripcion.equalsIgnoreCase(descripcion)){
+       return actual;
+    }
+    return buscarRec(actual.siguiente, descripcion);
+}
         // Inactivar el servicio
         public void inactivar(String descripcion) {
 
