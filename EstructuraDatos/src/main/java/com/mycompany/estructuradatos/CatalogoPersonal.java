@@ -1,6 +1,4 @@
-
 package com.mycompany.estructuradatos;
-
 
 import javax.swing.JOptionPane;
 
