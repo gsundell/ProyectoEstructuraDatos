@@ -158,7 +158,7 @@ public class EstructuraDatos {
             );
 
             if (opcion == -1 || opcion == 4) {
-                return; // vuelve al menú principal
+                return; 
             }
 
             switch (opcion) {

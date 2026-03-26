@@ -122,19 +122,25 @@ public class Ventas {
             nodo.dato.servicio.descripcion = nuevo;
 
             JOptionPane.showMessageDialog(null, "Modificado");
-            
+
         }
 
         public NodoVenta eliminar(NodoVenta r, int id) {
-            if (r == null) return null;
+            if (r == null) {
+                return null;
+            }
             if (id < r.dato.id) {
                 r.izq = eliminar(r.izq, id);
             } else if (id > r.dato.id) {
                 r.der = eliminar(r.der, id);
-} else {
-       
-        if (r.izq == null) return r.der;
-        if (r.der == null) return r.izq;
+            } else {
+
+                if (r.izq == null) {
+                    return r.der;
+                }
+                if (r.der == null) {
+                    return r.izq;
+                }
                 NodoVenta min = minimo(r.der);
                 r.dato = min.dato;
                 r.der = eliminar(r.der, min.dato.id);
@@ -142,11 +148,13 @@ public class Ventas {
             return r;
 
         }
-public void cancelar() {
+
+        public void cancelar() {
             int id = Integer.parseInt(JOptionPane.showInputDialog("ID a cancelar:"));
             raiz = eliminar(raiz, id);
             JOptionPane.showMessageDialog(null, "Venta eliminada");
-}
+        }
+
         public NodoVenta minimo(NodoVenta r) {
             while (r.izq != null) {
                 r = r.izq;
@@ -154,7 +162,5 @@ public void cancelar() {
             return r;
         }
 
-        
-        }
     }
-
+}
