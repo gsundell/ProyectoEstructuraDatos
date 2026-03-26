@@ -7,10 +7,10 @@ public class EstructuraDatos {
     public static void main(String[] args) {
         Usuarios.Pila usuarios = new Usuarios.Pila();
         CatalogoServicios.Cola servicios = new CatalogoServicios.Cola();
+        CatalogoPersonal.ListaDoble personal = new CatalogoPersonal.ListaDoble();
         Ventas.ArbolVentas ventas = new Ventas.ArbolVentas();
         servicios.cargarServicios();
 
-        //REGISTRO Y LOGIN
         JOptionPane.showMessageDialog(null, "Para acceder a computadores MYSOFT, debe registrarse primero");
         usuarios.registro();
 
@@ -20,10 +20,10 @@ public class EstructuraDatos {
             JOptionPane.showMessageDialog(null, "Inicie sesión para continuar");
             acceso = usuarios.login();
         }
-        //AQUI PASAMOS A MENU CON BOTONES 
+
         while (true) {
 
-            String[] botones = {"Usuarios", "Servicios", "Ventas", "Salir"};
+            String[] botones = {"Usuarios", "Servicios", "Personal", "Ventas", "Salir"};
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
@@ -43,13 +43,15 @@ public class EstructuraDatos {
                 CatalogoServicios(servicios);
             }
             if (opcion == 2) {
+                menuPersonal(personal);
+            }
+            if (opcion == 3) {
                 menuVentas(ventas, servicios, usuarios);
             }
-            if (opcion == 3 || opcion == -1) {
+            if (opcion == 4 || opcion == -1) {
                 System.exit(0);
             }
         }
-
     }
 
     public static void menuVentas(Ventas.ArbolVentas ventas, CatalogoServicios.Cola servicios, Usuarios.Pila usuarios) {
@@ -90,7 +92,6 @@ public class EstructuraDatos {
         }
     }
 
-    //MENU DE USUARIOS
     public static void menuUsuarios(Usuarios.Pila usuarios) {
 
         while (true) {
@@ -133,7 +134,6 @@ public class EstructuraDatos {
         }
     }
 
-    //MENU DE CATÁLOGO DE SERVICIOS 
     public static void CatalogoServicios(CatalogoServicios.Cola servicios) {
 
         while (true) {
@@ -159,6 +159,7 @@ public class EstructuraDatos {
 
             if (opcion == -1 || opcion == 4) {
                 return; 
+                
             }
 
             switch (opcion) {
@@ -195,6 +196,54 @@ public class EstructuraDatos {
 
                     servicios.mostrar();
 
+                    break;
+            }
+        }
+    }
+
+    public static void menuPersonal(CatalogoPersonal.ListaDoble personal) {
+
+        while (true) {
+
+            String[] botones = {
+                "Agregar Persona",
+                "Editar Persona",
+                "Inactivar Persona",
+                "Mostrar Personal",
+                "Volver"
+            };
+
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Catálogo de Personal ===",
+                    "Personal",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
+
+            if (opcion == -1 || opcion == 4) {
+                return;
+            }
+
+            switch (opcion) {
+
+                case 0:
+                    personal.agregar();
+                    break;
+
+                case 1:
+                    personal.editar();
+                    break;
+
+                case 2:
+                    personal.inactivar();
+                    break;
+
+                case 3:
+                    personal.mostrar();
                     break;
             }
         }
