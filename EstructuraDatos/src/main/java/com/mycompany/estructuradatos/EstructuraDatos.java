@@ -9,6 +9,8 @@ public class EstructuraDatos {
         CatalogoServicios.Cola servicios = new CatalogoServicios.Cola();
         CatalogoPersonal.ListaDoble personal = new CatalogoPersonal.ListaDoble();
         Ventas.ArbolVentas ventas = new Ventas.ArbolVentas();
+        Caja caja = new Caja(); 
+
         servicios.cargarServicios();
 
         JOptionPane.showMessageDialog(null, "Para acceder a computadores MYSOFT, debe registrarse primero");
@@ -23,12 +25,12 @@ public class EstructuraDatos {
 
         while (true) {
 
-            String[] botones = {"Usuarios", "Servicios", "Personal", "Ventas", "Salir"};
+            String[] botones = {"Usuarios", "Servicios", "Personal", "Ventas", "Caja", "Salir"};
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
                     "=== Bienvenido a Computadores MYSOFT ===",
-                    "Menú Principal",
+                    "Menu Principal",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
                     null,
@@ -48,7 +50,10 @@ public class EstructuraDatos {
             if (opcion == 3) {
                 menuVentas(ventas, servicios, usuarios);
             }
-            if (opcion == 4 || opcion == -1) {
+            if (opcion == 4) { 
+                menuCaja(caja);
+            }
+            if (opcion == 5 || opcion == -1) {
                 System.exit(0);
             }
         }
@@ -105,7 +110,7 @@ public class EstructuraDatos {
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
-                    "=== Menú Usuarios ===",
+                    "=== Menu Usuarios ===",
                     "Usuarios",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
@@ -148,7 +153,7 @@ public class EstructuraDatos {
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
-                    "=== Catálogo de Servicios ===",
+                    "=== Catalogo de Servicios ===",
                     "Servicios",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
@@ -158,8 +163,7 @@ public class EstructuraDatos {
             );
 
             if (opcion == -1 || opcion == 4) {
-                return; 
-                
+                return;
             }
 
             switch (opcion) {
@@ -215,7 +219,7 @@ public class EstructuraDatos {
 
             int opcion = JOptionPane.showOptionDialog(
                     null,
-                    "=== Catálogo de Personal ===",
+                    "=== Catalogo de Personal ===",
                     "Personal",
                     JOptionPane.DEFAULT_OPTION,
                     JOptionPane.INFORMATION_MESSAGE,
@@ -244,6 +248,58 @@ public class EstructuraDatos {
 
                 case 3:
                     personal.mostrar();
+                    break;
+            }
+        }
+    }
+
+    
+    public static void menuCaja(Caja caja) {
+
+        while (true) {
+
+            String[] botones = {
+                "Agregar Ingreso",
+                "Mostrar Ingresos",
+                "Total del Dia",
+                "Volver"
+            };
+
+            int opcion = JOptionPane.showOptionDialog(
+                    null,
+                    "=== Modulo Caja ===",
+                    "Caja",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    botones,
+                    botones[0]
+            );
+
+            if (opcion == -1 || opcion == 3) {
+                return;
+            }
+
+            switch (opcion) {
+
+                case 0:
+                    String fecha = JOptionPane.showInputDialog("Ingrese la fecha");
+
+                    double monto = Double.parseDouble(
+                            JOptionPane.showInputDialog("Ingrese el monto"));
+
+                    caja.agregarIngreso(fecha, monto);
+
+                    JOptionPane.showMessageDialog(null, "Ingreso agregado correctamente");
+                    break;
+
+                case 1:
+                    caja.mostrarIngresos();
+                    break;
+
+                case 2:
+                    double total = caja.totalIngresos();
+                    JOptionPane.showMessageDialog(null, "Total del dia: " + total);
                     break;
             }
         }
